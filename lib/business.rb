@@ -37,9 +37,9 @@ private
       end
     end
     
-    p w
+    #print w
     within_window 'cliPopup' do
-      p html
+      print html
     end
     #within_window w do
     #  p html
