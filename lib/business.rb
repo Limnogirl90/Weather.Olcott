@@ -42,10 +42,10 @@ private
     #print w
     within_window 'cliPopup' do
 #      print html
-      pre_node = find(:xpath, '//pre/font')
+      font_node = find(:xpath, '//pre/font')
       #p pre_node
       #puts pre_node.methods
-      print pre_node.text
+      print font_node.text
       #puts pre_node.value
       #print pre_node.to_json
       #ap the_node
