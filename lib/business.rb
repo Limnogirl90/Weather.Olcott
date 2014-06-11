@@ -5,65 +5,42 @@ class Business
 
   BASE_URL = 'http://www.nws.noaa.gov/'
   LOGIN_URI = URI.join(BASE_URL, '/climate/index.php?wfo=buf')
-  #CSV_URI = URI.join(BASE_URL, '/transactionDownload.event')
-
-  # The presence of this cookie indicates that logging in was successful.
-  #LOGGED_IN_COOKIE = 'userguid'
-  # These cookies are required to download the transactions CSV.
-  #CSV_COOKIES = ['JSESSIONID', 'mintPN']
 
   def initialize
-    #@credentials = credentials
     log_in
   end
 
-  # Returns the Mint transactions CSV.
-  #def csv
-  #  csv_cookies = cookies.values_at(*CSV_COOKIES)
-  #  cookie_header = cookie_header(csv_cookies)
-
-  #  open(CSV_URI, 'Cookie' => cookie_header).read
-  #end
-
 private
 
-  # Logs into Mint. Blocks execution until successful.
   def log_in
     visit LOGIN_URI
 
+    s = nil
+    reports_form = find(:xpath, '//form[@name="getData"]')
     w = window_opened_by do
-      within(:xpath, '//form[@name="getData"]') do
-        #fill_in 'email', :with => @credentials.username
-        #fill_in 'password', :with => @credentials.password
-        find(:xpath, '(//td[@class="a8"]/a)[3]').click
+      within reports_form do
+        go_button = find(:xpath, '//td[@class="a8"][4]/a')
+        timeframe = find(:xpath, '//td[@class="a8"][3]')
+        within timeframe do
+          date_selector = find(:xpath, 'font/select')
+          within date_selector do
+            s = all(:xpath, 'option')
+#          find(:xpath, '//option[@value="20140423"]').click
+          end
+        end
+        go_button.click
+        #s = find(:xpath, '(//td[@class="a8"]/font/select[@class="a8"])/option').all
       end
     end
-    
-    #print w
-    within_window 'cliPopup' do
-#      print html
-      font_node = find(:xpath, '//pre/font')
-      #p pre_node
-      #puts pre_node.methods
-      print font_node.text
-      #puts pre_node.value
-      #print pre_node.to_json
-      #ap the_node
-    end
-    #within_window w do
-    #  p html
-    #end
 
-    #wait = Wait.new
-    #wait.until { cookies.keys.include?(LOGGED_IN_COOKIE) }
+    s.each do |opt|
+      #puts "#{opt.value}: #{opt.text}"
+    end
+    
+    within_window 'cliPopup' do
+      font_node = find(:xpath, '//pre/font')
+      print font_node.text
+    end
   end
 
-  # Given a hash of cookie objects, returns a single "Cookie" header string.
-  #def cookie_header(cookies)
-  #  cookies.map { |cookie| [cookie.name, cookie.value].join('=') }.join('; ')
-  #end
-
-  #def cookies
-  #  page.driver.cookies
-  #end
 end
