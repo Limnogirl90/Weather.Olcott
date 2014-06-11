@@ -22,10 +22,12 @@ private
         go_button = find(:xpath, '//td[@class="a8"][4]/a')
         timeframe = find(:xpath, '//td[@class="a8"][3]')
         within timeframe do
+          find(:xpath, 'input[@value="no"]').click
           date_selector = find(:xpath, 'font/select')
           within date_selector do
             s = all(:xpath, 'option')
-#          find(:xpath, '//option[@value="20140423"]').click
+            p find(:xpath, 'option[@value="20140423"]') #.click
+            save_screenshot('screenshot.png')
           end
         end
         go_button.click
@@ -34,7 +36,7 @@ private
     end
 
     s.each do |opt|
-      #puts "#{opt.value}: #{opt.text}"
+      puts "#{opt.value}: #{opt.text}"
     end
     
     within_window 'cliPopup' do
