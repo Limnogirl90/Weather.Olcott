@@ -24,9 +24,13 @@ private
         within timeframe do
           find(:xpath, 'input[@value="no"]').click
           date_selector = find(:xpath, 'font/select')
+          date_selector.select('April 22nd, 2014') #'20140423')
           within date_selector do
             s = all(:xpath, 'option')
-            #p find(:xpath, 'option[@value="20140423"]') #.click
+
+            #GAH: won't work
+            #my_option = find(:xpath, 'option[@value="20140423"]')
+            #select my_option.value
           end
         end
         go_button.click
@@ -35,7 +39,9 @@ private
     end
 
     s.each do |opt|
-      #puts "#{opt.value}: #{opt.text}"
+      puts "#{opt.value}: #{opt.text}"
+      #puts "#{opt.methods}"
+      #break
     end
     
     within_window 'cliPopup' do
