@@ -27,7 +27,6 @@ private
           within date_selector do
             s = all(:xpath, 'option')
             #p find(:xpath, 'option[@value="20140423"]') #.click
-            save_screenshot('screenshot.png')
           end
         end
         go_button.click
