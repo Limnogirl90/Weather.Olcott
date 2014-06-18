@@ -1,2 +1,2 @@
 #!/usr/bin/env bash
-bundle exec ruby runme.rb > runme.out
+bundle exec ruby runme.rb > runme.out 2>/dev/null

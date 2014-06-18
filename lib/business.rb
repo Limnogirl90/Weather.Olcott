@@ -1,4 +1,4 @@
-#require 'ap'
+require 'ap'
 
 class Business
   include Capybara::DSL
@@ -26,7 +26,7 @@ private
           date_selector = find(:xpath, 'font/select')
           within date_selector do
             s = all(:xpath, 'option')
-            p find(:xpath, 'option[@value="20140423"]') #.click
+            #p find(:xpath, 'option[@value="20140423"]') #.click
             save_screenshot('screenshot.png')
           end
         end
@@ -36,12 +36,16 @@ private
     end
 
     s.each do |opt|
-      puts "#{opt.value}: #{opt.text}"
+      #puts "#{opt.value}: #{opt.text}"
     end
     
     within_window 'cliPopup' do
       font_node = find(:xpath, '//pre/font')
-      print font_node.text
+      #print font_node.text
+      str = font_node.text
+      arr = str.split("...................................")
+      clown = arr[2].clone
+      ap clown.scan(/[+\s[:alpha:]()]+[\d\s\.-]+/).map(&:strip)
     end
   end
 
