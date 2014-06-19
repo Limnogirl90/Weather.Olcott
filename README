@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
-for date in `seq -w 20140419 20140430` `seq -w 20140501 20140531` `seq -w 20140601 20140621`; do
-  bundle exec ruby runme.rb $date > ${date}.out 2>/dev/null
+for date in `seq -w 20140601 20140621`; do
+  bundle exec ruby runme.rb $date > data/${date}.out 2>/dev/null
 done
