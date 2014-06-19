@@ -12,7 +12,7 @@ require_relative 'lib/business'
 
 Driver.configure
 
-business = Business.new
+business = Business.new(ARGV[0])
 
 #p business.windows
 #puts mint_exporter.csv
