@@ -2,6 +2,6 @@
 
 #curl --data "printer_friendly=&product=CLI&station=BUF&recent=no&date=20140421&prodDesc=DAILY+CLIMATE+REPORT+-+issued+daily:Detailed+daily+weather+statistics+(usually+for+yesterday),+including+temperature,+precipitation,+degree+days,+wind,+humidity,+sunrise/sunset,+and+record+temperature+data+for+the+following+day.++Precipitation+data+includes+both+calendar+year+and+water+year+totals,+percent+of+normal+values,+and+comparisons+to+normal.++This+product+is+available+for+up+to+2+months.++++++++" http://www.nws.noaa.gov/climate/getclimate.php\?wfo\=buf
 
-for date in `seq -w 20140826 20140831`; do
+for date in `seq -w 20140901 20140917`; do
   bundle exec ruby runme.rb $date > data/${date}.out 2>/dev/null
 done
